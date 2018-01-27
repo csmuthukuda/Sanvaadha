@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:padding="5dp"
+    android:gravity="center"
+    android:textSize="12sp"
+    android:background="@drawable/words_layout_words_grid_text_view_selector"
+    android:text="dsdssds"/>

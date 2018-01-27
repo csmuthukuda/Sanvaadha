@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.csmprojects.sanvaada.Reader"
+    android:background="#89ccce">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="420dp"
+        android:id="@+id/readerLayoutMeaningTxtView"
+android:padding="10dp"
+        android:background="@drawable/round_rectangle"
+        android:layout_margin="12dp"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/readerLayoutMeaningTxtView"
+        android:id="@+id/readerRelativeLayout">
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/readerLayoutBackBtn"
+            android:layout_margin="5dp"
+            android:background="@drawable/left_arrow_selector"
+         />
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:id="@+id/readerLayoutKeyBoardBtn"
+            android:layout_margin="5dp"
+            android:background="@drawable/keyboard_selector"/>
+
+    </RelativeLayout>
+</RelativeLayout>
