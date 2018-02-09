@@ -1,6 +1,8 @@
 package com.csmprojects.sanvaada;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,6 +35,7 @@ public class Words extends AppCompatActivity  {
     Button backSPace, food, no, verb, people, time, question, weight;
     ImageView wordsImage;
     static  float RADIUS;
+    ImageButton about;
 
     int j;
     List<pl.droidsonroids.gif.GifDrawable> drawableList;
@@ -47,6 +51,8 @@ public class Words extends AppCompatActivity  {
         ActionBar.LayoutParams p = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         p.gravity = Gravity.CENTER;
 
+        about = getSupportActionBar().getCustomView().findViewById(R.id.about);
+        about.setVisibility(View.GONE);
         displayItemsList = new ArrayList<>();
 
         wordsImage = (ImageView) findViewById(R.id.wordsImageView);
@@ -200,9 +206,13 @@ public class Words extends AppCompatActivity  {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            NavUtils.navigateUpFromSameTask(this);
+            Intent readerIntent = new Intent(this, Reader.class);
+            readerIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(readerIntent);
+            finish();
             return true;
         }
+
         return false;
     }
 

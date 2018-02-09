@@ -32,20 +32,22 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".Reader" />
-        <activity android:name=".Words"
-            android:parentActivityName=".Reader"/>
+        <activity android:name=".Reader"
+            android:parentActivityName=".Main"/>
+        <activity
+            android:name=".Words"
+            android:parentActivityName=".Reader" />
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/fullscreenTheme"
-           >
+            android:theme="@style/fullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".AboutActivity"
+            android:label="About"/>
     </application>
 
 </manifest>

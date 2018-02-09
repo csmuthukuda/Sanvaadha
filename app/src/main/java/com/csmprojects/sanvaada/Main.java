@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,6 +58,7 @@ public class Main extends AppCompatActivity {
     private ViewPager mainGridViewPager;
     private Button sendBtn, delete, play, food, no, verb, people, time, question, weight;
     static  float RADIUS;
+    ImageButton about;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,16 @@ public class Main extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.actionbar);
         ActionBar.LayoutParams p = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         p.gravity = Gravity.CENTER;
+
+        about = getSupportActionBar().getCustomView().findViewById(R.id.about);
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent aboutIntent = new Intent(Main.this,AboutActivity.class);
+                startActivity(aboutIntent);
+
+            }
+        });
 
         pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
@@ -116,6 +128,8 @@ public class Main extends AppCompatActivity {
                 if (checkPermission()) {
                     if (!displayItemsList.isEmpty())
                         new GifCombiner().execute();
+                    else
+                        Toast.makeText(Main.this,"Write Something  :)",Toast.LENGTH_SHORT).show();
                 } else {
                     requestPermission(); // Code for permission
                 }
@@ -536,7 +550,8 @@ public class Main extends AppCompatActivity {
                 Uri newFile = FileProvider.getUriForFile(Main.this, "com.csmprojects.sanvaada", shareFile);
                 share.setDataAndType(newFile, Main.this.getContentResolver().getType(newFile));
                 share.putExtra(Intent.EXTRA_STREAM, newFile);
-                startActivity(share);
+               // startActivity(share);
+                startActivity(Intent.createChooser(share, "Share"));
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
