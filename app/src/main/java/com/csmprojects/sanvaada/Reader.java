@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class Reader extends AppCompatActivity {
@@ -32,8 +33,14 @@ public class Reader extends AppCompatActivity {
         ActionBar.LayoutParams p = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         p.gravity = Gravity.CENTER;
 
+        Spinner language = getSupportActionBar().getCustomView().findViewById(R.id.language);
+        language.setVisibility(View.GONE);
+
         about = getSupportActionBar().getCustomView().findViewById(R.id.about);
         about.setVisibility(View.GONE);
+
+        TextView version = getSupportActionBar().getCustomView().findViewById(R.id.version);
+        version.setVisibility(View.GONE);
 
         meaningTxtView = (TextView) findViewById(R.id.readerLayoutMeaningTxtView);
         String meaning = "";

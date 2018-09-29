@@ -94,7 +94,7 @@ public class WordsGridViewPagerFragment extends Fragment   {
         View view = inflater.inflate(R.layout.words_grid_view_layout, container, false);
         int itemListNo = getArguments().getInt("itemlistno");
         wordsActivity = (Words) getActivity();
-        wordsGrid = (GridView) view.findViewById(R.id.wordsLayoutWordsGrid);
+        wordsGrid = view.findViewById(R.id.wordsLayoutWordsGrid);
 
 
         switch (itemListNo) {

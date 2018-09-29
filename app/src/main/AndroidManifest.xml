@@ -23,22 +23,21 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".Main">
+        <activity
+            android:name=".Main"
+            android:screenOrientation="portrait"/>
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
-        <activity android:name=".Reader"
-            android:parentActivityName=".Main"/>
+        <activity
+            android:name=".Reader"
+            android:parentActivityName=".Main"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Words"
-            android:parentActivityName=".Reader" />
+            android:parentActivityName=".Reader"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SplashActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/fullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,8 +45,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AboutActivity"
-            android:label="About"/>
+        <activity
+            android:name=".AboutActivity"
+            android:label="About"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

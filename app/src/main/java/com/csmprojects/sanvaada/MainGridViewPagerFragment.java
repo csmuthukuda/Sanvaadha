@@ -29,7 +29,7 @@ public class MainGridViewPagerFragment extends Fragment {
         View view = inflater.inflate(R.layout.main_grid_view_layout, container, false);
         int itemListNo = getArguments().getInt("itemlistno");
         mainActivity = (Main) getActivity();
-        mainGrid = (GridView) view.findViewById(R.id.mainGridView);
+        mainGrid = view.findViewById(R.id.mainGridView);
         adapter = new MainGridViewAdapter(getActivity(), itemListNo);
         mainGrid.setAdapter(adapter);
         return view;

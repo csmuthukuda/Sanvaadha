@@ -8,6 +8,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -51,8 +53,13 @@ public class Words extends AppCompatActivity  {
         ActionBar.LayoutParams p = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         p.gravity = Gravity.CENTER;
 
+        Spinner language = getSupportActionBar().getCustomView().findViewById(R.id.language);
+        language.setVisibility(View.GONE);
         about = getSupportActionBar().getCustomView().findViewById(R.id.about);
         about.setVisibility(View.GONE);
+        TextView version = getSupportActionBar().getCustomView().findViewById(R.id.version);
+        version.setVisibility(View.GONE);
+
         displayItemsList = new ArrayList<>();
 
         wordsImage = (ImageView) findViewById(R.id.wordsImageView);
@@ -66,6 +73,7 @@ public class Words extends AppCompatActivity  {
         wordsImage.setImageDrawable(firstDrawable);
 
         meaningTxtView = (TextView) findViewById(R.id.wordsLayoutMeaningTxtView);
+        meaningTxtView.setMovementMethod(new ScrollingMovementMethod());
         wordsGrid = (GridView) findViewById(R.id.wordsLayoutWordsGrid);
         displayGrid = (GridView) findViewById(R.id.wordsLayoutDisplayGrid);
 

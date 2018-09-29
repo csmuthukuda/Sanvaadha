@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../../../../Users/Chathuranga/AndroidstudioProjects/Sanvaada/Sanvaada.iml" filepath="$PROJECT_DIR$/../../../../Users/Chathuranga/AndroidstudioProjects/Sanvaada/Sanvaada.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../../../Users/Chathuranga/AndroidstudioProjects/Sanvaada/app/app.iml" filepath="$PROJECT_DIR$/../../../../Users/Chathuranga/AndroidstudioProjects/Sanvaada/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Sanvaada.iml" filepath="$PROJECT_DIR$/Sanvaada.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
 </project>

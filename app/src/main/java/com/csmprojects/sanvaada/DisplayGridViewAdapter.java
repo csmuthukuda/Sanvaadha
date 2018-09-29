@@ -19,11 +19,13 @@ public class DisplayGridViewAdapter extends BaseAdapter {
 
 
     private Context context;
-private List<GifItem> items;
-    DisplayGridViewAdapter(Context context, List<GifItem> items){
-        this.context=context;
-this.items=items;
+    private List<GifItem> items;
+
+    DisplayGridViewAdapter(Context context, List<GifItem> items) {
+        this.context = context;
+        this.items = items;
     }
+
     @Override
     public int getCount() {
         return items.size();

@@ -9,6 +9,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
@@ -19,14 +21,16 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.hiteshsondhi88.libffmpeg.FFmpeg;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 import com.waynejo.androidndkgif.GifDecoder;
 import com.waynejo.androidndkgif.GifEncoder;
@@ -38,7 +42,6 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.transforms.CornerRadiusTransform;
 import pl.droidsonroids.gif.transforms.Transform;
@@ -49,15 +52,15 @@ public class Main extends AppCompatActivity {
     ImageView mainImage;
     List<GifItem> displayItemsList;
     DisplayGridViewAdapter displayAdapter;
-    FFmpeg ffmpeg;
+    //FFmpeg ffmpeg;
     int j, count;
     List<pl.droidsonroids.gif.GifDrawable> drawableList;
-   // ProgressDialog pDialog;
-   SweetAlertDialog pDialog;
+    // ProgressDialog pDialog;
+    SweetAlertDialog pDialog;
     private TextView mainText;
     private ViewPager mainGridViewPager;
     private Button sendBtn, delete, play, food, no, verb, people, time, question, weight;
-    static  float RADIUS;
+    static float RADIUS;
     ImageButton about;
 
     @Override
@@ -70,11 +73,50 @@ public class Main extends AppCompatActivity {
         ActionBar.LayoutParams p = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         p.gravity = Gravity.CENTER;
 
+        TextView version = getSupportActionBar().getCustomView().findViewById(R.id.version);
+        version.setVisibility(View.GONE);
+
+        final Spinner language = getSupportActionBar().getCustomView().findViewById(R.id.language);
+        String [] list= {"සිංහල","தமிழ்","English (US)", "日本語"};
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.lang_spinner_layout,R.id.langSpinnerTxtView, list){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                // this part is needed for hiding the original view
+                View view = super.getView(position, convertView, parent);
+                view.setVisibility(View.GONE);
+
+                return view;
+            }
+
+//            @Override
+//            public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+//               View view = super.getDropDownView(position, convertView, parent);
+//               view.setBackgroundColor(getResources().getColor(R.color.white));
+//
+//               return  view;
+//            }
+        };
+        language.setAdapter(dataAdapter);
+        language.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                language.setSelection(0);
+                if(i>0)
+                Toast.makeText(Main.this,"Sanvaadha is presently capable to serve people who communicate in Sinhala language and our team is working to release Tamil,English and Japanese languages soon.",Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         about = getSupportActionBar().getCustomView().findViewById(R.id.about);
+
         about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent aboutIntent = new Intent(Main.this,AboutActivity.class);
+                Intent aboutIntent = new Intent(Main.this, AboutActivity.class);
                 startActivity(aboutIntent);
 
             }
@@ -129,7 +171,7 @@ public class Main extends AppCompatActivity {
                     if (!displayItemsList.isEmpty())
                         new GifCombiner().execute();
                     else
-                        Toast.makeText(Main.this,"Write Something  :)",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Main.this, "Write Something  :)", Toast.LENGTH_SHORT).show();
                 } else {
                     requestPermission(); // Code for permission
                 }
@@ -343,11 +385,7 @@ public class Main extends AppCompatActivity {
 
     private boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (result == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        } else {
-            return false;
-        }
+        return result == PackageManager.PERMISSION_GRANTED;
     }
 
     private void requestPermission() {
@@ -523,7 +561,7 @@ public class Main extends AppCompatActivity {
                         }
                         Log.e("Decode TAG: ", String.valueOf(isSucceeded));
                         File toDel = new File(displayItemsList.get(j).getPath());
-                        if(toDel.exists())
+                        if (toDel.exists())
                             toDel.delete();
                     }
                 }
@@ -550,7 +588,7 @@ public class Main extends AppCompatActivity {
                 Uri newFile = FileProvider.getUriForFile(Main.this, "com.csmprojects.sanvaada", shareFile);
                 share.setDataAndType(newFile, Main.this.getContentResolver().getType(newFile));
                 share.putExtra(Intent.EXTRA_STREAM, newFile);
-               // startActivity(share);
+                // startActivity(share);
                 startActivity(Intent.createChooser(share, "Share"));
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -565,6 +603,7 @@ public class Main extends AppCompatActivity {
         }
 
     }
+
     public static float pxFromDp(final Context context, final float dp) {
         return dp * context.getResources().getDisplayMetrics().density;
     }

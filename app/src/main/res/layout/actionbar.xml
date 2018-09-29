@@ -5,15 +5,28 @@
     android:layout_height="match_parent"
     android:background="#009da2">
 
+    <Spinner
+
+    android:background="@drawable/ic_language"
+        android:id="@+id/language"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_centerVertical="true"
+        android:spinnerMode="dropdown"
+        android:dropDownHorizontalOffset="-15dp"
+        android:padding="7dp"
+        android:layout_alignParentStart="true"/>
+
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_alignEnd="@+id/version"
+        android:layout_centerVertical="true"
         android:ellipsize="end"
+        android:gravity="center"
         android:maxLines="1"
         android:text="සංවාද | Sanvaadha"
-        android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@android:color/white" />
 
@@ -26,6 +39,18 @@
         android:background="?android:selectableItemBackground"
         android:padding="7dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_info" />
+        android:src="@drawable/ic_info"
+        android:layout_alignParentRight="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/version"
+        android:layout_alignBottom="@+id/title"
+        android:layout_alignParentEnd="true"
+        android:text="Beta Version"
+        android:textStyle="bold"
+        android:textSize="13sp"
+        android:textColor="#ffff"/>
 
 </RelativeLayout>
