@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#85c5c7"
+    android:background="#9FC4EE"
     tools:context="com.csmprojects.sanvaada.AboutActivity">
 
     <FrameLayout

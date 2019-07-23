@@ -9,14 +9,13 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -48,20 +47,26 @@ import pl.droidsonroids.gif.transforms.Transform;
 
 
 public class Main extends AppCompatActivity {
-    GridView mainGridView, displayGridView;
+    static float RADIUS;
+    GridView mainGridView;
     ImageView mainImage;
     List<GifItem> displayItemsList;
-    DisplayGridViewAdapter displayAdapter;
+    //  DisplayGridViewAdapter displayAdapter;
     //FFmpeg ffmpeg;
     int j, count;
     List<pl.droidsonroids.gif.GifDrawable> drawableList;
     // ProgressDialog pDialog;
     SweetAlertDialog pDialog;
-    private TextView mainText;
-    private ViewPager mainGridViewPager;
-    private Button sendBtn, delete, play, food, no, verb, people, time, question, weight;
-    static float RADIUS;
     ImageButton about;
+    TextView meaningTxtView;
+    private TextView mainText;
+    private ViewPager mainGridViewPager, wordsGridViewPager;
+    private Button sendBtn, delete, play, food, no, verb, people, time, question, weight;
+    private boolean isGifKbShowing = true;
+
+    public static float pxFromDp(final Context context, final float dp) {
+        return dp * context.getResources().getDisplayMetrics().density;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,9 +81,12 @@ public class Main extends AppCompatActivity {
         TextView version = getSupportActionBar().getCustomView().findViewById(R.id.version);
         version.setVisibility(View.GONE);
 
+        meaningTxtView = (TextView) findViewById(R.id.mainLayoutMeaningTxtView);
+        meaningTxtView.setMovementMethod(new ScrollingMovementMethod());
+
         final Spinner language = getSupportActionBar().getCustomView().findViewById(R.id.language);
-        String [] list= {"සිංහල","தமிழ்","English (US)", "日本語"};
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.lang_spinner_layout,R.id.langSpinnerTxtView, list){
+        String[] list = {"සිංහල", "தமிழ்", "English (US)", "日本語"};
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.lang_spinner_layout, R.id.langSpinnerTxtView, list) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 // this part is needed for hiding the original view
@@ -101,8 +109,8 @@ public class Main extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 language.setSelection(0);
-                if(i>0)
-                Toast.makeText(Main.this,"Sanvaadha is presently capable to serve people who communicate in Sinhala language and our team is working to release Tamil,English and Japanese languages soon.",Toast.LENGTH_SHORT).show();
+                if (i > 0)
+                    Toast.makeText(Main.this, "Sanvaadha is presently capable to serve people who communicate in Sinhala language and our team is working to release Tamil,English and Japanese languages soon.", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -176,70 +184,18 @@ public class Main extends AppCompatActivity {
                     requestPermission(); // Code for permission
                 }
 
-
-//                    commandStrBldr.append(" -s 200x200 " + file.getAbsolutePath() + "/output.gif");
-//                    Log.e("OUT PATH TAG ", commandStrBldr.toString());
-//
-//                    String[] command = commandStrBldr.toString().split(" ");
-
-//                    ffmpeg.execute(command, new ExecuteBinaryResponseHandler() {
-//
-//                        @Override
-//                        public void onStart() {
-//                            pDialog.setTitle("Loading");
-//                            pDialog.show();
-//                        }
-//
-//                        @Override
-//                        public void onProgress(String message) {
-//                            //   Toast.makeText(Main.this,"Progress: "+message,Toast.LENGTH_SHORT).show();
-//                            Log.e("Progress TAG: ", message);
-//                        }
-//
-//                        @Override
-//                        public void onFailure(String message) {
-//                            Toast.makeText(Main.this, "Failed: " + message, Toast.LENGTH_SHORT).show();
-//                            Log.e("Failure TAG: ", message);
-//                        }
-//
-//                        @Override
-//                        public void onSuccess(String message) {
-//                            Toast.makeText(Main.this, "Success: " + message, Toast.LENGTH_SHORT).show();
-//                            Log.e("Success TAG: ", message);
-//                        }
-//
-//                        @Override
-//                        public void onFinish() {
-//                            pDialog.dismiss();
-//                        }
-//                    });
-
-
             }
 
         });
 
-
-        //    String gif1 = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/gif1.gif";
-        //    String gif2 = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/gif2.gif";
-
-        //   String command1 = "-i " + gif1 + " -f mpegts " + file.getAbsolutePath() + "/gif1.ts";
-        //   String command2 = "-i " + gif2 + " -f mpegts " + file.getAbsolutePath() + "/gif2.ts";
-        //    String commandStr = "-i concat:" + gif1 + "|" + gif2 + " -s 200x200 " + file.getAbsolutePath() + "/output.gif";
-
-        //  String commandStr="-i concat:"+file.getAbsolutePath()+"/gif1.ts|"+file.getAbsolutePath()+"/gif2.ts -pix_fmt rgb24 "+file.getAbsolutePath()+"/output.gif";
-        // String commandStr="-f concat -safe 0 -i <(for f in ."+Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+"/*.gif; do echo \"file '$PWD/$f'\"; done) -c copy output.gif";
-        //      String fullCommandStr=command1  ;
-
-
-        displayGridView = (GridView) findViewById(R.id.displayGridView);
+        // displayGridView = (GridView) findViewById(R.id.displayGridView);
         mainImage = (ImageView) findViewById(R.id.mainImageView);
 //        mainText = (TextView) findViewById(R.id.mainTxtView);
         delete = (Button) findViewById(R.id.mainLayoutDeleteBtn);
         play = (Button) findViewById(R.id.mainLayoutPlayBtn);
 
         final pl.droidsonroids.gif.GifDrawable firstDrawable = pl.droidsonroids.gif.GifDrawable.createFromResource(getResources(),
-                R.drawable.appa);
+                R.drawable.awidinawa);
         firstDrawable.setLoopCount(0);
         Transform transform = new CornerRadiusTransform(RADIUS);
         firstDrawable.setTransform(transform);
@@ -248,33 +204,42 @@ public class Main extends AppCompatActivity {
 
 
         displayItemsList = new ArrayList<>();
-        displayAdapter = new DisplayGridViewAdapter(Main.this, displayItemsList);
-        displayGridView.setAdapter(displayAdapter);
+//        displayAdapter = new DisplayGridViewAdapter(Main.this, displayItemsList);
+//        displayGridView.setAdapter(displayAdapter);
+
+
 
         mainGridViewPager = (ViewPager) findViewById(R.id.mainLayoutViewPager);
-        MainGridViewPagerAdapter pagerAdapter = new MainGridViewPagerAdapter(getSupportFragmentManager());
+
+        MainGridViewPagerAdapter pagerAdapter = new MainGridViewPagerAdapter(getSupportFragmentManager(), isGifKbShowing);
         mainGridViewPager.setAdapter(pagerAdapter);
 
-
+        isGifKbShowing = false;
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent playIntent = new Intent(Main.this, Reader.class);
-                String meaning = "";
-                for (int i = 0; i < displayItemsList.size(); i++) {
-                    meaning = meaning + " " + displayItemsList.get(i).getMeaning();
-                }
-                playIntent.putExtra("meaning", meaning);
-                startActivityForResult(playIntent, 0);
+
+                play.setBackgroundResource(isGifKbShowing ? R.drawable.key_board : R.drawable.sign);
+
+                MainGridViewPagerAdapter pagerAdapter = new MainGridViewPagerAdapter(getSupportFragmentManager(), isGifKbShowing);
+                mainGridViewPager.setAdapter(pagerAdapter);
+                mainGridViewPager.getAdapter().notifyDataSetChanged();
+                isGifKbShowing = !isGifKbShowing;
+
             }
         });
-
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if (!displayItemsList.isEmpty()) {
                     displayItemsList.remove(displayItemsList.size() - 1);
-                    displayAdapter.notifyDataSetChanged();
+                    //  displayGridAdapter.notifyDataSetChanged();
+                    StringBuilder builder = new StringBuilder();
+                    for (GifItem item : displayItemsList) {
+                        builder.append(item.getMeaning()).append(" ");
+                    }
+                    meaningTxtView.setText(builder.toString());
 
                     if (displayItemsList.size() == 0) {
                         mainImage.setImageDrawable(firstDrawable);
@@ -288,15 +253,17 @@ public class Main extends AppCompatActivity {
             }
         });
 
+
         delete.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                if (!displayItemsList.isEmpty()) {
+                if (displayItemsList.size() > 0) {
                     for (pl.droidsonroids.gif.GifDrawable drawable : drawableList) {
                         drawable.recycle();
                     }
                     displayItemsList.clear();
-                    displayAdapter.notifyDataSetChanged();
+                    // displayGridAdapter.notifyDataSetChanged();
+                    meaningTxtView.setText("");
                     mainImage.setImageDrawable(firstDrawable);
                     return true;
                 }
@@ -304,6 +271,7 @@ public class Main extends AppCompatActivity {
 
             }
         });
+
         food = (Button) findViewById(R.id.mainLayoutFoodBtn);
         no = (Button) findViewById(R.id.mainLayoutNoBtn);
         people = (Button) findViewById(R.id.mainLayoutPeopleBtn);
@@ -398,6 +366,7 @@ public class Main extends AppCompatActivity {
         }
     }
 
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -411,101 +380,6 @@ public class Main extends AppCompatActivity {
                 break;
         }
     }
-//    public static class com.csmprojects.sanvaada.ChainedGifDrawable extends Drawable implements AnimationListener {
-//        private final pl.droidsonroids.gif.GifDrawable[] mDrawables;
-//        private int mCurrentIndex;
-//
-//        public com.csmprojects.sanvaada.ChainedGifDrawable(GifDrawable[] drawableArray) {
-//            mDrawables = drawableArray;
-//
-//            for (pl.droidsonroids.gif.GifDrawable drawable : drawableArray) {
-//                drawable.addAnimationListener(this);
-//
-//            }
-//        }
-//
-//        @Override
-//        public void onAnimationCompleted(int loopNumber) {
-//            Log.e("mcurrntindex 1 ", String.valueOf(mCurrentIndex));
-//            mCurrentIndex++;
-//            mCurrentIndex %= mDrawables.length;
-//            Log.e("mcurrntindex 2", String.valueOf(mCurrentIndex));
-//            mDrawables[mCurrentIndex].setCallback(getCallback());
-//            mDrawables[mCurrentIndex].invalidateSelf();
-//        }
-//
-//        @Override
-//        public void invalidateSelf() {
-//            mDrawables[mCurrentIndex].invalidateSelf();
-//            Log.e("Called invalidateSelf " + mCurrentIndex, "Checked");
-//        }
-//
-//        @Override
-//        public void scheduleSelf(@NonNull Runnable what, long when) {
-//            mDrawables[mCurrentIndex].scheduleSelf(what, when);
-//            Log.e("Called scheduleSelf " + mCurrentIndex, "Checked");
-//        }
-//
-//        @Override
-//        public void unscheduleSelf(@NonNull Runnable what) {
-//            mDrawables[mCurrentIndex].unscheduleSelf(what);
-//            Log.e("Called unscheduleSelf " + mCurrentIndex, "Checked");
-//        }
-//
-//        @Override
-//        public int getIntrinsicWidth() {
-//            Log.e("Called getIntrinsicWidth " + mCurrentIndex, "Checked");
-//            return mDrawables[mCurrentIndex].getIntrinsicWidth();
-//        }
-//
-//        @Override
-//        public int getIntrinsicHeight() {
-//            Log.e("Called getIntrinsicHeight " + mCurrentIndex, "Checked");
-//            return mDrawables[mCurrentIndex].getIntrinsicHeight();
-//        }
-//
-//        @Override
-//        protected void onBoundsChange(Rect bounds) {
-//            for (pl.droidsonroids.gif.GifDrawable drawable : mDrawables) {
-//                drawable.setBounds(bounds);
-//            }
-//            Log.e("Called onboundsChange " + mCurrentIndex, "Checked");
-//        }
-//
-//
-//        @Override
-//        public void draw(@NonNull Canvas canvas) {
-//            mDrawables[mCurrentIndex].draw(canvas);
-//            Log.e("Called draw " + mCurrentIndex, "Checked");
-//        }
-//
-//        @Override
-//        public void setAlpha(@IntRange(from = 0, to = 255) int alpha) {
-//            for (pl.droidsonroids.gif.GifDrawable drawable : mDrawables) {
-//                drawable.setAlpha(alpha);
-//            }
-//            Log.e("Called setAlpha " + mCurrentIndex, "Checked");
-//        }
-//
-//        @Override
-//        public void setColorFilter(@Nullable ColorFilter colorFilter) {
-//            for (pl.droidsonroids.gif.GifDrawable drawable : mDrawables) {
-//                drawable.setColorFilter(colorFilter);
-//            }
-//            Log.e("Called setcolorfilter " + mCurrentIndex, "Checked");
-//        }
-//
-//        @Override
-//        public int getOpacity() {
-//            Log.e("Called getOpacity  " + mCurrentIndex, "Checked");
-//            return PixelFormat.TRANSLUCENT;
-//        }
-//
-//        public void setAnimationEnabled() {
-//
-//            mDrawables[0].setCallback(getCallback());
-//        }
-//    }
 
     private class GifCombiner extends AsyncTask<Void, Void, Void> {
 
@@ -517,7 +391,7 @@ public class Main extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-
+                StringBuilder text = new StringBuilder() ;
 
                 Log.e("WritePermission: ", "Already granted");
                 File file = new File(Environment.getExternalStoragePublicDirectory(
@@ -528,7 +402,7 @@ public class Main extends AppCompatActivity {
                     // use directory.mkdirs(); here instead.
                 }
                 for (int i = 0; i < displayItemsList.size(); i++) {
-
+                    text.append(displayItemsList.get(i).getMeaning()).append(" ");
                     int id = displayItemsList.get(i).getGifId();
                     File f = new File(file.getAbsolutePath() + "/" + i + ".gif");
                     InputStream inputStream = getResources().openRawResource(id); // id drawable
@@ -567,9 +441,9 @@ public class Main extends AppCompatActivity {
                 }
                 GifEncoder gifEncoder = new GifEncoder();
                 String outPath = file.getAbsolutePath() + "/out.gif";
-                int width = 300;
-                int height = 300;
-                int delayMs = 200;
+                int width = 100;
+                int height = 100;
+                int delayMs = 10;
 
                 gifEncoder.init(width, height, outPath, GifEncoder.EncodingType.ENCODING_TYPE_SIMPLE_FAST);
                 gifEncoder.setDither(true);
@@ -580,6 +454,8 @@ public class Main extends AppCompatActivity {
                 gifEncoder.close();
                 Log.e("Encode TAG: ", "Success");
 
+
+
                 Intent share = new Intent();
                 share.setType("image/gif");
                 share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -588,6 +464,7 @@ public class Main extends AppCompatActivity {
                 Uri newFile = FileProvider.getUriForFile(Main.this, "com.csmprojects.sanvaada", shareFile);
                 share.setDataAndType(newFile, Main.this.getContentResolver().getType(newFile));
                 share.putExtra(Intent.EXTRA_STREAM, newFile);
+                share.putExtra(Intent.EXTRA_TEXT, text.length() > 0 ? text.toString() : " no text");
                 // startActivity(share);
                 startActivity(Intent.createChooser(share, "Share"));
             } catch (Exception ex) {
@@ -602,9 +479,5 @@ public class Main extends AppCompatActivity {
 
         }
 
-    }
-
-    public static float pxFromDp(final Context context, final float dp) {
-        return dp * context.getResources().getDisplayMetrics().density;
     }
 }

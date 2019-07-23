@@ -14,7 +14,7 @@
         android:stretchMode="columnWidth"
         android:verticalSpacing="3dp"
         android:padding="5dp"
-        android:background="#009da2">
+        android:background="#63A0E3">
 
     </GridView>
 

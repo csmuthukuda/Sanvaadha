@@ -31,13 +31,13 @@
             android:layout_margin="5dp"
             android:background="@drawable/left_arrow_selector" />
 
-        <Button
-            android:id="@+id/readerLayoutKeyBoardBtn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentRight="true"
-            android:layout_margin="5dp"
-            android:background="@drawable/keyboard_selector" />
+        <!--<Button-->
+            <!--android:id="@+id/readerLayoutKeyBoardBtn"-->
+            <!--android:layout_width="50dp"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:background="@drawable/keyboard_selector" />-->
 
     </RelativeLayout>
 </RelativeLayout>

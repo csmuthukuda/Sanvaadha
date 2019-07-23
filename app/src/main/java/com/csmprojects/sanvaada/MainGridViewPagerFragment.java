@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
@@ -44,8 +45,13 @@ public class MainGridViewPagerFragment extends Fragment {
                 out.reset();
                 GifItem item = (GifItem) adapter.getItem(i);
                 mainActivity.displayItemsList.add(item);
-                mainActivity.displayAdapter.notifyDataSetChanged();
+                mainActivity.meaningTxtView.append(item.getMeaning() + " ");
                 mainActivity.startMainAnimation();
+                pl.droidsonroids.gif.GifDrawable gifDrawable =(pl.droidsonroids.gif.GifDrawable) ((ImageView)view.findViewById(R.id.mainGridViewItemImageVw)).getDrawable();
+                if(gifDrawable.isPlaying()){
+                    gifDrawable.stop();
+                }
+
 
 
             }

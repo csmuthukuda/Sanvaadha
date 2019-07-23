@@ -7,7 +7,7 @@
         android:id="@+id/mainGridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#009da2"
+        android:background="#63A0E3"
         android:columnWidth="50dp"
         android:gravity="center"
         android:horizontalSpacing="5dp"

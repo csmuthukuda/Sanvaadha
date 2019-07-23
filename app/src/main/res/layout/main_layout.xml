@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#89ccce"
+    android:background="#9FC4EE"
     android:orientation="vertical"
     android:padding="5dp"
     tools:context="com.csmprojects.sanvaada.Main">
@@ -11,57 +11,84 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:background="#89ccce">
+        android:background="#9FC4EE">
 
-    <Button
-        android:id="@+id/mainLayoutSendBtn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignBottom="@+id/displayGridView"
-        android:layout_alignEnd="@+id/displayGridView"
-        android:background="@drawable/send_button_selector"
-        android:layout_margin="5dp"
-        />
+        <Button
+            android:id="@+id/mainLayoutSendBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignEnd="@+id/mainLayoutMeaningTxtView"
+            android:layout_alignBottom="@+id/mainLayoutMeaningTxtView"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/send_button_selector" />
 
-    <GridView
-            android:id="@+id/displayGridView"
+    <!--<GridView-->
+            <!--android:id="@+id/displayGridView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="180dp"-->
+            <!--android:layout_margin="10dp"-->
+            <!--android:background="@drawable/round_rectangle"-->
+            <!--android:columnWidth="40dp"-->
+            <!--android:gravity="center"-->
+            <!--android:horizontalSpacing="5dp"-->
+            <!--android:numColumns="5"-->
+            <!--android:stretchMode="columnWidth"-->
+            <!--android:verticalSpacing="5dp" />-->
+
+        <TextView
+            android:id="@+id/mainLayoutMeaningTxtView"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/round_rectangle"
-            android:columnWidth="40dp"
-            android:gravity="center"
-            android:horizontalSpacing="5dp"
-            android:numColumns="5"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="5dp" />
-
+            android:layout_height="match_parent"
+            android:layout_above="@+id/mainButtonLayout"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:lines="5"
+            android:maxLines="6"
+            android:padding="8dp"
+            android:scrollbars="vertical"
+            android:text=""
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <RelativeLayout
             android:id="@+id/mainButtonLayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
-            android:background="#009da2"
+            android:layout_marginBottom="0dp"
+            android:background="#63A0E3"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/mainLayoutDeleteBtn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_alignParentLeft="true"
-                android:layout_marginLeft="8dp"
                 android:layout_margin="5dp"
+                android:layout_marginLeft="8dp"
                 android:background="@drawable/backspace_arrow_selector" />
 
             <Button
                 android:id="@+id/mainLayoutPlayBtn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="51dp"
+                android:layout_height="28dp"
                 android:layout_alignParentRight="true"
-                android:layout_margin="5dp"
-                android:scaleType="centerCrop"
-                android:background="@drawable/play_button_selector" />
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/key_board"
+                android:scaleType="centerCrop" />
         </RelativeLayout>
 
         <com.csmprojects.sanvaada.ChainFriendlyImageView

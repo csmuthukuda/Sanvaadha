@@ -31,7 +31,7 @@ public class WordsGridViewPagerFragment extends Fragment   {
 
     List<GifItem> items;
     GridView wordsGrid;
-    Words wordsActivity;
+    Main wordsActivity;
     ArrayAdapter<String> wordListAdapter;
     ByteArrayOutputStream out;
     boolean isAnimCompleted;
@@ -45,55 +45,56 @@ public class WordsGridViewPagerFragment extends Fragment   {
 //
 //    private String[] nounMeaningArray ={"ඉතුරු", "සල්ලි", "බඩු", "කඩය", "මොබිටෙල්", "ලැයිස්තුව" };
 
-    private int[] verbGifArray = {R.drawable.menna, R.drawable.thiyenawada, R.drawable.monawada, R.drawable.oona, R.drawable.kiyada,
-            R.drawable.denna, R.drawable.ganna, R.drawable.puluwan, R.drawable.dannawa};
+    private int[] verbGifArray = {R.drawable.abaranawa,R.drawable.adanawa,R.drawable.adhinawa,R.drawable.adinawa,R.drawable.ahanawa,R.drawable.arinawa,R.drawable.athu_gaanawa, R.drawable.awidinawa,
+            R.drawable.balanawa, R.drawable.baninawa, R.drawable.bonawa, R.drawable.daduwam_karanawa, R.drawable.damanawa, R.drawable.denawa, R.drawable.duwanawa, R.drawable.ellanawa, R.drawable.enawa,
+            R.drawable.ganan_karanawa, R.drawable.gannawa, R.drawable.genawa, R.drawable.haaranawa, R.drawable.hadanawa, R.drawable.hamuwenawa, R.drawable.hinawenawa, R.drawable.idagannawa, R.drawable.igena_gannawa,
+            R.drawable.iranawa, R.drawable.kadanawa, R.drawable.kanawa, R.drawable.kapanawa, R.drawable.kasanawa, R.drawable.kata_karanawa, R.drawable.kiyanawa, R.drawable.kiyawanawa, R.drawable.kotanawa, R.drawable.liyanawa,
+            R.drawable.makanawa, R.drawable.miladeegannawa, R.drawable.naanawa, R.drawable.natanawa, R.drawable.nawathinawa, R.drawable.nidigannawa, R.drawable.osawanawa, R.drawable.paadam_karanawa, R.drawable.palanawa, R.drawable.paninawa, R.drawable.peenanawa,
+            R.drawable.peenawa, R.drawable.randu_karanwa, R.drawable.sellam_karanawa, R.drawable.sita_gannawa, R.drawable.sitawanawa, R.drawable.sodanawa, R.drawable.thaththu_karanawa, R.drawable.therum_gannawa, R.drawable.thoranawa, R.drawable.udaw_karanawa, R.drawable.uganwanawa, R.drawable.unukaranawa,
+            R.drawable.uthuranawa, R.drawable.uyanawa, R.drawable.wada_karanawa, R.drawable.wapuranawa, R.drawable.wasanawa, R.drawable.wikunanawa, R.drawable.wiyadam_karanawa, R.drawable.yanawa};
 
-    private String[] verbMeaningArray = {"මෙන්න", "තියෙනවද", "මොනවද", "ඕන", "කීයද", "දෙන්න", "ගන්න", "පුළුවන්", "දන්නවා"};
+    private String[] verbMeaningArray = {"අඹරනවා","අඬනවා", "අදිනවා", "අඳිනවා", "අහනවා", "අරිනවා", "අතුගානවා", "ඇවිදිනවා",
+            "බලනවා", "බණිනවා", "බොනවා", "දඬුවම්-කරනවා", "දමනවා", "දෙනවා", "දුවනවා", "එල්ලනවා", "එනවා",
+            "ගණන්-කරනවා", "ගන්නවා", "ගේනවා", "හාරනවා", "හදනවා", "හමුවෙනවා", "හිනාවෙනවා", "ඉදිගන්නවා", "ඉගෙන-ගන්නවා",
+            "ඉරනවා", "කඩනවා", "කනවා", "කපනවා", "කසනවා", "කථා-කරනවා", "කියනවා", "කියවනවා", "කොටනවා", "ලියනවා",
+            "මකනවා", "මිළදී-ගන්නවා", "නානවා", "නටනවා", "නවතිනවා", "නිදිගන්නවා", "ඔසවනවා", "පාඩම්-කරනවා", "පලනවා", "පනිනවා", "පීනනවා",
+            "පේනවා", "රණ්ඩුකරනවා", "සෙල්ලම්කරනවා", "", "සිට-ගන්නවා", "සිටවනවා", "සෝදනවා", "තට්ටු-කරනවා", "තේරුම්-ගන්නවා", "තෝරනවා", "උදව්-කරනවා", "උගන්වනවා", "උණුකරනවා",
+            "උතුරනවා", "උයනවා", "වැඩ-කරනවා", "වපුරනවා", "වසනවා", "විකුණනවා", "වියදම්-කරනවා", "යනවා" };
 
-    private int[] timeGifArray = {R.drawable.laga, R.drawable.ara, R.drawable.dan, R.drawable.iwarai, R.drawable.tikak, R.drawable.thawa, R.drawable.menna};
+    private int[] timeGifArray = {R.drawable.january, R.drawable.february, R.drawable.march, R.drawable.april, R.drawable.may, R.drawable.june, R.drawable.july, R.drawable.august, R.drawable.september, R.drawable.october, R.drawable.november, R.drawable.december};
 
-    private String[] timeMeaningArray = {"ළඟ", "අර", "දැන්", "ඉවරයි", "ටිකක්", "තව", "මෙන්න"};
+    private String[] timeMeaningArray = {"ජනවාරි", "පෙබරවාරි", "මාර්තු", "අප්\u200Dරේල්", "මැයි", "ජුනි", "ජුලි", "අගෝස්තු", "සැප්තැම්බර්", "ඔක්තෝම්බර්", "නොවැම්බර්", "දෙසැම්බර්"};
 
-    private int[] peopleGifArray = {R.drawable.mata, R.drawable.oyata};
+    private int[] peopleGifArray = {};
 
-    private String[] peopleMeaningArray = {"මට", "ඔයාට"};
+    private String[] peopleMeaningArray = {};
 
-    private int[] qAndaGifArray = {R.drawable.ow, R.drawable.natha, R.drawable.oo, R.drawable.kiyada, R.drawable.harida, R.drawable.kawda};
+    private int[] questionsGifArray = {R.drawable.ai, R.drawable.awashyada, R.drawable.bara_keeyada, R.drawable.denawada, R.drawable.dennada, R.drawable.ganna_puluwanda, R.drawable.gewanna_onada, R.drawable.harida, R.drawable.kaatada, R.drawable.kauda
+            , R.drawable.kawadada, R.drawable.keeyada, R.drawable.keeyak_onada, R.drawable.keeyatada, R.drawable.kochcharada, R.drawable.kohida, R.drawable.kohomada, R.drawable.kopamanada, R.drawable.liwwada, R.drawable.liyanna_puluwanda, R.drawable.liyannada
+            , R.drawable.mokada, R.drawable.monawada, R.drawable.onada, R.drawable.prashnarthaya, R.drawable.puluwanda, R.drawable.thiyenawada, R.drawable.udaw_karanawada, R.drawable.welawa_keeyatada};
 
-    private String[] qAndaMeaningArray = {"ඔව්", "නැත", "ඕ", "කීයද", "හරිද", "කව්ද"};
+    private String[] questionsMeaningArray = {"ඇයි", "අවශ්යද", "බර-කීයද", "දෙනවද", "දෙන්නද", "ගන්න-පුලුවන්ද", "ගෙවන්න-ඕනද", "හරිද", "කාටද", "කවුද",
+            "කවද්ද", "කීයද", "කීයක්-ඕනෙද", "කීයටද", "කොච්චරද", "කොහිද", "කොහොමද", "කොපමණද", "ලිව්වද", "ලියන්න-පුලුවන්ද", "ලියන්නද",
+            "මොකද", "මොනවද", "ඕනද", "ප්රශ්නාර්ථ", "පුලුවන්ද", "තියනවද", "උදව්-කරනවද", "වෙලාව-කීයටද"};
 
-    private int[] weightGifArray = {R.drawable.onekg, R.drawable.twokg, R.drawable.threekg, R.drawable.fiftyg, R.drawable.onehundredfiftyg,
-            R.drawable.threehundredg, R.drawable.threehundredfiftyg, R.drawable.fourhundredg, R.drawable.fivehundredg};
+    private int[] weightGifArray = {};
 
-    private String[] weightMeaningArray = {"කිලෝග්‍රෑම් එක", "කිලෝග්‍රෑම් දෙක", "කිලෝග්‍රෑම් තුන", "ග්‍රෑම් පනහ",
-            "ග්‍රෑම් එකසියපනහ", "ග්‍රෑම් තුන්සීය", "ග්‍රෑම් තුන්සියපනහ", "ග්‍රෑම් හාරසීය", "ග්‍රෑම් පන්සීය"};
+    private String[] weightMeaningArray = {};
 
-    private int[] foodGifArray = {R.drawable.appa, R.drawable.banis, R.drawable.biththara, R.drawable.elawalu,
-            R.drawable.haal, R.drawable.idiappa, R.drawable.kadala, R.drawable.karawala, R.drawable.keek, R.drawable.kibulabanis,
-            R.drawable.kos, R.drawable.malupaan, R.drawable.munata, R.drawable.noodles, R.drawable.paan,
-            R.drawable.parippu, R.drawable.rospan, R.drawable.anchor, R.drawable.babysaban, R.drawable.biscuit, R.drawable.elawaluroti,
-            R.drawable.lifebuoy, R.drawable.lux, R.drawable.milo, R.drawable.nestomalt, R.drawable.paspanguwa, R.drawable.piti,
-            R.drawable.pittu, R.drawable.rathulunu, R.drawable.rathumiris, R.drawable.rolls, R.drawable.roti, R.drawable.seeni,
-            R.drawable.sunlight, R.drawable.toffee, R.drawable.viyalimiris, R.drawable.ithuru, R.drawable.salli, R.drawable.badu, R.drawable.kadaya, R.drawable.mobitel, R.drawable.laisthuwa};
+    private int[] foodGifArray = {};
 
-    private String[] foodMeaningArray = {"ආප්ප", "බනිස්", "බිත්තර", "එලවළු", "හාල්", "ඉදි ආප්ප", "කඩල", "කරවල", "කේක්",
-            "කිඹුලා බනිස්", "කොස්", "මාළු පාන්", "මුන් ඇට", "නූඩ්ලස්", "පාන්", "පරිප්පු", "රෝස් පාන්", "ඇන්කර්", "බේබි සබන්", "බිස්කට්", "එලවළු රොටි", "ලයිෆ් බෝයි", "ලක්ස්",
-            "මයිලෝ", "නෙස්ටමෝල්ට්", "පස් පංගුව", "පිටි", "පිට්ටු", "රතු ළූනු", "රතු මිරිස්", "රෝල්ස්", "රොටි", "සීනි", "සන් ලයිට්", "ටොෆී", "වියලි මිරිස්", "ඉතුරු", "සල්ලි", "බඩු", "කඩය", "මොබිටෙල්", "ලැයිස්තුව"};
+    private String[] foodMeaningArray = {};
 
-    private int[] numbersGifArray = {R.drawable.one, R.drawable.two, R.drawable.three, R.drawable.four, R.drawable.five,
-            R.drawable.six, R.drawable.seven, R.drawable.eight, R.drawable.nine, R.drawable.ten, R.drawable.fifteen, R.drawable.twenty, R.drawable.twentyfive,
-            R.drawable.thirty, R.drawable.thirtyfive, R.drawable.fourty, R.drawable.fourtyfive, R.drawable.fifty, R.drawable.fiftyfive, R.drawable.sixty, R.drawable.sixtyfive,
-            R.drawable.seventy, R.drawable.seventyfive, R.drawable.eighty, R.drawable.eightyfive, R.drawable.ninety, R.drawable.ninetyfive, R.drawable.hundred, R.drawable.onehundredten, R.drawable.twohundredfifty};
+    private int[] numbersGifArray = {};
 
-    private String[] numbersMeaningArray = {"එක", "දෙක", "තුන", "හතර", "පහ", "හය", "හත", "අට", "නමය", "දහය", "පහළොව", "විස්ස", "විසිපහ", "තිහ", "තිස්පහ", "හතලිහ", "හතලිස්පහ", "පනහ", "පනස්පහ", "හැට",
-            "හැටපහ", "හැත්තෑව", "හැත්තෑපහ", "අසූව", "අසූපහ", "අනූව", "අනූපහ", "සීය", "එකසියදහය", "දෙසියපනහ"};
+    private String[] numbersMeaningArray = {};
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.words_grid_view_layout, container, false);
         int itemListNo = getArguments().getInt("itemlistno");
-        wordsActivity = (Words) getActivity();
+        wordsActivity = (Main) getActivity();
         wordsGrid = view.findViewById(R.id.wordsLayoutWordsGrid);
 
 
@@ -123,8 +124,8 @@ public class WordsGridViewPagerFragment extends Fragment   {
                 break;
 
             case 5:
-                gifArray = qAndaGifArray;
-                meaningArray = qAndaMeaningArray;
+                gifArray = questionsGifArray;
+                meaningArray = questionsMeaningArray;
                 break;
 
             case 6:
@@ -152,13 +153,9 @@ public class WordsGridViewPagerFragment extends Fragment   {
 
                 GifItem item = items.get(i);
                 wordsActivity.displayItemsList.add(item);
-                wordsActivity.displayGridAdapter.notifyDataSetChanged();
                 wordsActivity.meaningTxtView.append(meaningArray[i] + " ");
                 wordsActivity.startMainAnimation();
-//                Glide.with(getActivity()).load(item.getGifId()).asGif().
-//                        transform(new GifDrawableTransformation(new CropCircleTransformation(getActivity()), Glide.get(getActivity()).getBitmapPool()))
-//                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-//                        .into(wordsActivity.wordsImage);
+
 
 
             }
