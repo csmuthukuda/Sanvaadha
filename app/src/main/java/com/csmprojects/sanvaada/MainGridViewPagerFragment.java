@@ -20,7 +20,7 @@ public class MainGridViewPagerFragment extends Fragment {
 
     List<GifItem> items;
     GridView mainGrid;
-    Main mainActivity;
+    MainActivity mainActivity;
     MainGridViewAdapter adapter;
     ByteArrayOutputStream out;
 
@@ -29,7 +29,7 @@ public class MainGridViewPagerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_grid_view_layout, container, false);
         int itemListNo = getArguments().getInt("itemlistno");
-        mainActivity = (Main) getActivity();
+        mainActivity = (MainActivity) getActivity();
         mainGrid = view.findViewById(R.id.mainGridView);
         adapter = new MainGridViewAdapter(getActivity(), itemListNo);
         mainGrid.setAdapter(adapter);

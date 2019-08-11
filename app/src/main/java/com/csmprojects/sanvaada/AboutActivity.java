@@ -40,7 +40,7 @@ public class AboutActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()==android.R.id.home){
-            Intent mainIntent = new Intent(this,Main.class);
+            Intent mainIntent = new Intent(this,MainActivity.class);
             mainIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(mainIntent);
             finish();

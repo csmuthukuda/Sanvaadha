@@ -6,7 +6,7 @@
     android:background="#9FC4EE"
     android:orientation="vertical"
     android:padding="5dp"
-    tools:context="com.csmprojects.sanvaada.Main">
+    tools:context="com.csmprojects.sanvaada.MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

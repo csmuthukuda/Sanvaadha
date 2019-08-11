@@ -3,13 +3,11 @@ package com.csmprojects.sanvaada;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
@@ -31,7 +29,6 @@ import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,13 +49,11 @@ import pl.droidsonroids.gif.transforms.CornerRadiusTransform;
 import pl.droidsonroids.gif.transforms.Transform;
 
 
-public class Main extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     static float RADIUS;
     GridView mainGridView;
     ImageView mainImage;
     List<GifItem> displayItemsList;
-    //  DisplayGridViewAdapter displayAdapter;
-    //FFmpeg ffmpeg;
     int j, count;
     List<pl.droidsonroids.gif.GifDrawable> drawableList;
     // ProgressDialog pDialog;
@@ -66,10 +61,10 @@ public class Main extends AppCompatActivity {
     ImageButton about;
     TextView meaningTxtView;
     private TextView mainText;
-    private ViewPager mainGridViewPager, wordsGridViewPager;
+    private ViewPager mainGridViewPager;
     private Button sendBtn, delete, play,
             question, verbs, alphabet, time, garment, birds, family, police, drinks, sickness, hospital, colors, animals,
-            postOffice, prepositions, pronouns, adjectives ;
+            postOffice, prepositions, pronouns, adjectives;
     private boolean isGifKbShowing = true;
     private int previousBtnClicked = -1;
     private List<Button> btnArr;
@@ -93,7 +88,7 @@ public class Main extends AppCompatActivity {
         TextView version = getSupportActionBar().getCustomView().findViewById(R.id.version);
         version.setVisibility(View.GONE);
 
-        meaningTxtView = (TextView) findViewById(R.id.mainLayoutMeaningTxtView);
+        meaningTxtView = findViewById(R.id.mainLayoutMeaningTxtView);
         meaningTxtView.setMovementMethod(new ScrollingMovementMethod());
 
         final Spinner language = getSupportActionBar().getCustomView().findViewById(R.id.language);
@@ -115,7 +110,7 @@ public class Main extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 language.setSelection(0);
                 if (i > 0)
-                    Toast.makeText(Main.this, "Sanvaadha is presently capable to serve people who communicate in Sinhala language and our team is working to release Tamil,English and Japanese languages soon.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Sanvaadha is presently capable to serve people who communicate in Sinhala language and our team is working to release Tamil,English and Japanese languages soon.", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -129,7 +124,7 @@ public class Main extends AppCompatActivity {
         about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent aboutIntent = new Intent(Main.this, AboutActivity.class);
+                Intent aboutIntent = new Intent(MainActivity.this, AboutActivity.class);
                 startActivity(aboutIntent);
 
             }
@@ -148,33 +143,7 @@ public class Main extends AppCompatActivity {
         }
 
 
-        sendBtn = (Button) findViewById(R.id.mainLayoutSendBtn);
-
-
-        //Intiate FFmpeg
-//        ffmpeg = FFmpeg.getInstance(this);
-//        try {
-//            ffmpeg.loadBinary(new LoadBinaryResponseHandler() {
-//                @Override
-//                public void onStart() {
-//                }
-//
-//                @Override
-//                public void onFailure() {
-//                }
-//
-//                @Override
-//                public void onSuccess() {
-//                }
-//
-//                @Override
-//                public void onFinish() {
-//                }
-//            });
-//        } catch (FFmpegNotSupportedException e) {
-//            e.printStackTrace();
-//        }
-//        final StringBuilder commandStrBldr = new StringBuilder("-i concat:");
+        sendBtn = findViewById(R.id.mainLayoutSendBtn);
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,7 +153,7 @@ public class Main extends AppCompatActivity {
                     if (!displayItemsList.isEmpty())
                         new GifCombiner().execute();
                     else
-                        Toast.makeText(Main.this, "Write Something  :)", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Write Something  :)", Toast.LENGTH_SHORT).show();
                 } else {
                     requestPermission(); // Code for permission
                 }
@@ -193,11 +162,9 @@ public class Main extends AppCompatActivity {
 
         });
 
-        // displayGridView = (GridView) findViewById(R.id.displayGridView);
-        mainImage = (ImageView) findViewById(R.id.mainImageView);
-//        mainText = (TextView) findViewById(R.id.mainTxtView);
-        delete = (Button) findViewById(R.id.mainLayoutDeleteBtn);
-        play = (Button) findViewById(R.id.mainLayoutPlayBtn);
+        mainImage = findViewById(R.id.mainImageView);
+        delete = findViewById(R.id.mainLayoutDeleteBtn);
+        play = findViewById(R.id.mainLayoutPlayBtn);
 
         final pl.droidsonroids.gif.GifDrawable firstDrawable = pl.droidsonroids.gif.GifDrawable.createFromResource(getResources(),
                 R.drawable.awidinawa);
@@ -209,19 +176,14 @@ public class Main extends AppCompatActivity {
 
 
         displayItemsList = new ArrayList<>();
-//        displayAdapter = new DisplayGridViewAdapter(Main.this, displayItemsList);
-//        displayGridView.setAdapter(displayAdapter);
-
-
-
-        mainGridViewPager = (ViewPager) findViewById(R.id.mainLayoutViewPager);
+        mainGridViewPager = findViewById(R.id.mainLayoutViewPager);
 
         MainGridViewPagerAdapter pagerAdapter = new MainGridViewPagerAdapter(getSupportFragmentManager(), isGifKbShowing);
         mainGridViewPager.setAdapter(pagerAdapter);
         mainGridViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
-            highLightButton(btnArr.get(i));
+                highLightButton(btnArr.get(i));
             }
 
             @Override
@@ -293,23 +255,23 @@ public class Main extends AppCompatActivity {
             }
         });
 
-        question = (Button) findViewById(R.id.mainLayoutQuestionsBtn);
-        verbs = (Button) findViewById(R.id.mainLayoutVerbsBtn);
-        alphabet = (Button) findViewById(R.id.mainLayoutAlphabetBtn);
-        time = (Button) findViewById(R.id.mainLayoutTimeBtn);
-        garment = (Button) findViewById(R.id.mainLayoutGarmentBtn);
-        birds = (Button) findViewById(R.id.mainLayoutBirdsBtn);
-        family = (Button) findViewById(R.id.mainLayoutFamilyBtn);
-        police = (Button) findViewById(R.id.mainLayoutPoliceBtn);
-        drinks = (Button) findViewById(R.id.mainLayoutDrinksBtn);
-        sickness = (Button) findViewById(R.id.mainLayoutSicknessBtn);
-        hospital = (Button) findViewById(R.id.mainLayoutHospitalBtn);
-        colors = (Button) findViewById(R.id.mainLayoutColorsBtn);
-        animals = (Button) findViewById(R.id.mainLayoutAnimalsBtn);
-        postOffice = (Button) findViewById(R.id.mainLayoutPostOfficeBtn);
-        prepositions = (Button) findViewById(R.id.mainLayoutPrepositionsBtn);
-        pronouns = (Button) findViewById(R.id.mainLayoutPronounsBtn);
-        adjectives = (Button) findViewById(R.id.mainLayoutAdjectivesBtn);
+        question = findViewById(R.id.mainLayoutQuestionsBtn);
+        verbs = findViewById(R.id.mainLayoutVerbsBtn);
+        alphabet = findViewById(R.id.mainLayoutAlphabetBtn);
+        time = findViewById(R.id.mainLayoutTimeBtn);
+        garment = findViewById(R.id.mainLayoutGarmentBtn);
+        birds = findViewById(R.id.mainLayoutBirdsBtn);
+        family = findViewById(R.id.mainLayoutFamilyBtn);
+        police = findViewById(R.id.mainLayoutPoliceBtn);
+        drinks = findViewById(R.id.mainLayoutDrinksBtn);
+        sickness = findViewById(R.id.mainLayoutSicknessBtn);
+        hospital = findViewById(R.id.mainLayoutHospitalBtn);
+        colors = findViewById(R.id.mainLayoutColorsBtn);
+        animals = findViewById(R.id.mainLayoutAnimalsBtn);
+        postOffice = findViewById(R.id.mainLayoutPostOfficeBtn);
+        prepositions = findViewById(R.id.mainLayoutPrepositionsBtn);
+        pronouns = findViewById(R.id.mainLayoutPronounsBtn);
+        adjectives = findViewById(R.id.mainLayoutAdjectivesBtn);
 
 
         question.setOnClickListener(new View.OnClickListener() {
@@ -469,9 +431,9 @@ public class Main extends AppCompatActivity {
 
     }
 
-    void highLightButton(Button button){
-        if(previousBtnClicked > 0){
-          Button  prevBtn = findViewById(previousBtnClicked);
+    void highLightButton(Button button) {
+        if (previousBtnClicked > 0) {
+            Button prevBtn = findViewById(previousBtnClicked);
             Drawable buttonDrawable = prevBtn.getBackground();
             buttonDrawable = DrawableCompat.wrap(buttonDrawable);
             //the color is a direct color int and not a color resource
@@ -485,7 +447,7 @@ public class Main extends AppCompatActivity {
         DrawableCompat.setTint(buttonDrawable, Color.parseColor("#63A0E3"));
         button.setBackground(buttonDrawable);
 
-        scrollView.requestChildFocus(button,button);
+        scrollView.requestChildFocus(button, button);
     }
 
     void startMainAnimation() {
@@ -531,13 +493,14 @@ public class Main extends AppCompatActivity {
             case 1:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Log.e("value", "Permission Granted, Now you can use local drive .");
-                    Toast.makeText(Main.this, "Permission granted,Continue your work", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Permission granted,Continue your work", Toast.LENGTH_SHORT).show();
                 } else {
                     Log.e("value", "Permission Denied, You cannot use local drive .");
                 }
                 break;
         }
     }
+
     private class GifCombiner extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -548,7 +511,7 @@ public class Main extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                StringBuilder text = new StringBuilder() ;
+                StringBuilder text = new StringBuilder();
 
                 Log.e("WritePermission: ", "Already granted");
                 File file = new File(Environment.getExternalStoragePublicDirectory(
@@ -573,10 +536,6 @@ public class Main extends AppCompatActivity {
                     displayItemsList.get(i).setPath(f.getAbsolutePath());
                     Log.e("File TAG ", f.getName() + " created");
 
-                    //  commandStrBldr.append(f.getAbsolutePath());
-//                        if (!(i == (displayItemsList.size() - 1))) {
-//                            commandStrBldr.append("|");
-//                        }
 
                 }
 
@@ -612,14 +571,13 @@ public class Main extends AppCompatActivity {
                 Log.e("Encode TAG: ", "Success");
 
 
-
                 Intent share = new Intent();
                 share.setType("image/gif");
                 share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 share.setAction(Intent.ACTION_SEND);
                 File shareFile = new File(outPath);
-                Uri newFile = FileProvider.getUriForFile(Main.this, "com.csmprojects.sanvaada", shareFile);
-                share.setDataAndType(newFile, Main.this.getContentResolver().getType(newFile));
+                Uri newFile = FileProvider.getUriForFile(MainActivity.this, "com.csmprojects.sanvaada", shareFile);
+                share.setDataAndType(newFile, MainActivity.this.getContentResolver().getType(newFile));
                 share.putExtra(Intent.EXTRA_STREAM, newFile);
                 share.putExtra(Intent.EXTRA_TEXT, text.length() > 0 ? text.toString() : " no text");
                 // startActivity(share);
