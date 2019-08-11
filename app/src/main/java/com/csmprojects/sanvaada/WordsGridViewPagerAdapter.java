@@ -25,6 +25,6 @@ public class WordsGridViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 7;
+        return 16;
     }
 }

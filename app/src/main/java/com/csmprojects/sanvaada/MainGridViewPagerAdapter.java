@@ -35,6 +35,6 @@ public class MainGridViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 7;
+        return 17;
     }
 }

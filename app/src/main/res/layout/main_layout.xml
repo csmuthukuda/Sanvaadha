@@ -25,19 +25,6 @@
             android:layout_marginBottom="4dp"
             android:background="@drawable/send_button_selector" />
 
-    <!--<GridView-->
-            <!--android:id="@+id/displayGridView"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="180dp"-->
-            <!--android:layout_margin="10dp"-->
-            <!--android:background="@drawable/round_rectangle"-->
-            <!--android:columnWidth="40dp"-->
-            <!--android:gravity="center"-->
-            <!--android:horizontalSpacing="5dp"-->
-            <!--android:numColumns="5"-->
-            <!--android:stretchMode="columnWidth"-->
-            <!--android:verticalSpacing="5dp" />-->
-
         <TextView
             android:id="@+id/mainLayoutMeaningTxtView"
             android:layout_width="match_parent"
@@ -130,37 +117,29 @@
 
 
                 <Button
-                    android:id="@+id/mainLayoutFoodBtn"
+                    android:id="@+id/mainLayoutQuestionsBtn"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_margin="8dp"
                     android:layout_marginLeft="5dp"
-                    android:background="@drawable/food_selector" />
+                    android:background="@drawable/ic_questions" />
 
                 <Button
-                    android:id="@+id/mainLayoutNoBtn"
+                    android:id="@+id/mainLayoutVerbsBtn"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_margin="8dp"
                     android:layout_marginLeft="8dp"
-                    android:background="@drawable/numbers_selector" />
+                    android:background="@drawable/ic_verbs" />
 
                 <Button
-                    android:id="@+id/mainLayoutVerbBtn"
+                    android:id="@+id/mainLayoutAlphabetBtn"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_margin="8dp"
                     android:layout_marginLeft="8dp"
-                    android:background="@drawable/verb_selector" />
+                    android:background="@drawable/ic_alphabet" />
 
-
-                <Button
-                    android:id="@+id/mainLayoutPeopleBtn"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:background="@drawable/people_selector" />
 
                 <Button
                     android:id="@+id/mainLayoutTimeBtn"
@@ -168,23 +147,113 @@
                     android:layout_height="40dp"
                     android:layout_margin="8dp"
                     android:layout_marginLeft="8dp"
-                    android:background="@drawable/time_selector" />
+                    android:background="@drawable/ic_time" />
 
                 <Button
-                    android:id="@+id/mainLayoutQuestionBtn"
+                    android:id="@+id/mainLayoutGarmentBtn"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_margin="8dp"
                     android:layout_marginLeft="8dp"
-                    android:background="@drawable/question_selector" />
+                    android:background="@drawable/ic_garment" />
 
                 <Button
-                    android:id="@+id/mainLayoutWeightBtn"
+                    android:id="@+id/mainLayoutBirdsBtn"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_margin="8dp"
                     android:layout_marginLeft="8dp"
-                    android:background="@drawable/weight_selector" />
+                    android:background="@drawable/ic_birds" />
+
+                <Button
+                    android:id="@+id/mainLayoutFamilyBtn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/ic_family" />
+
+                <Button
+                    android:id="@+id/mainLayoutPoliceBtn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/ic_police" />
+
+                <Button
+                    android:id="@+id/mainLayoutDrinksBtn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/ic_drinks" />
+
+                <Button
+                    android:id="@+id/mainLayoutSicknessBtn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/ic_sickness" />
+
+                <Button
+                    android:id="@+id/mainLayoutHospitalBtn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/ic_hospital" />
+
+                <Button
+                    android:id="@+id/mainLayoutColorsBtn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/ic_colors" />
+
+                <Button
+                    android:id="@+id/mainLayoutAnimalsBtn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/ic_animals" />
+
+                <Button
+                    android:id="@+id/mainLayoutPostOfficeBtn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/ic_post_office" />
+
+                <Button
+                    android:id="@+id/mainLayoutPrepositionsBtn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/ic_prepositions" />
+
+                <Button
+                    android:id="@+id/mainLayoutPronounsBtn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/ic_pronouns" />
+
+                <Button
+                    android:id="@+id/mainLayoutAdjectivesBtn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/ic_adjectives" />
+
+
 
 
             </LinearLayout>

@@ -3,15 +3,19 @@ package com.csmprojects.sanvaada;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -24,8 +28,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,8 +67,13 @@ public class Main extends AppCompatActivity {
     TextView meaningTxtView;
     private TextView mainText;
     private ViewPager mainGridViewPager, wordsGridViewPager;
-    private Button sendBtn, delete, play, food, no, verb, people, time, question, weight;
+    private Button sendBtn, delete, play,
+            question, verbs, alphabet, time, garment, birds, family, police, drinks, sickness, hospital, colors, animals,
+            postOffice, prepositions, pronouns, adjectives ;
     private boolean isGifKbShowing = true;
+    private int previousBtnClicked = -1;
+    private List<Button> btnArr;
+    private HorizontalScrollView scrollView;
 
     public static float pxFromDp(final Context context, final float dp) {
         return dp * context.getResources().getDisplayMetrics().density;
@@ -72,6 +83,7 @@ public class Main extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
+        scrollView = findViewById(R.id.scrollView);
         RADIUS = pxFromDp(this, 150);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.actionbar);
@@ -96,13 +108,6 @@ public class Main extends AppCompatActivity {
                 return view;
             }
 
-//            @Override
-//            public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-//               View view = super.getDropDownView(position, convertView, parent);
-//               view.setBackgroundColor(getResources().getColor(R.color.white));
-//
-//               return  view;
-//            }
         };
         language.setAdapter(dataAdapter);
         language.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -213,6 +218,22 @@ public class Main extends AppCompatActivity {
 
         MainGridViewPagerAdapter pagerAdapter = new MainGridViewPagerAdapter(getSupportFragmentManager(), isGifKbShowing);
         mainGridViewPager.setAdapter(pagerAdapter);
+        mainGridViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+            highLightButton(btnArr.get(i));
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
 
         isGifKbShowing = false;
         play.setOnClickListener(new View.OnClickListener() {
@@ -272,62 +293,199 @@ public class Main extends AppCompatActivity {
             }
         });
 
-        food = (Button) findViewById(R.id.mainLayoutFoodBtn);
-        no = (Button) findViewById(R.id.mainLayoutNoBtn);
-        people = (Button) findViewById(R.id.mainLayoutPeopleBtn);
+        question = (Button) findViewById(R.id.mainLayoutQuestionsBtn);
+        verbs = (Button) findViewById(R.id.mainLayoutVerbsBtn);
+        alphabet = (Button) findViewById(R.id.mainLayoutAlphabetBtn);
         time = (Button) findViewById(R.id.mainLayoutTimeBtn);
-        question = (Button) findViewById(R.id.mainLayoutQuestionBtn);
-        verb = (Button) findViewById(R.id.mainLayoutVerbBtn);
-        weight = (Button) findViewById(R.id.mainLayoutWeightBtn);
+        garment = (Button) findViewById(R.id.mainLayoutGarmentBtn);
+        birds = (Button) findViewById(R.id.mainLayoutBirdsBtn);
+        family = (Button) findViewById(R.id.mainLayoutFamilyBtn);
+        police = (Button) findViewById(R.id.mainLayoutPoliceBtn);
+        drinks = (Button) findViewById(R.id.mainLayoutDrinksBtn);
+        sickness = (Button) findViewById(R.id.mainLayoutSicknessBtn);
+        hospital = (Button) findViewById(R.id.mainLayoutHospitalBtn);
+        colors = (Button) findViewById(R.id.mainLayoutColorsBtn);
+        animals = (Button) findViewById(R.id.mainLayoutAnimalsBtn);
+        postOffice = (Button) findViewById(R.id.mainLayoutPostOfficeBtn);
+        prepositions = (Button) findViewById(R.id.mainLayoutPrepositionsBtn);
+        pronouns = (Button) findViewById(R.id.mainLayoutPronounsBtn);
+        adjectives = (Button) findViewById(R.id.mainLayoutAdjectivesBtn);
 
-        food.setOnClickListener(new View.OnClickListener() {
+
+        question.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                highLightButton(question);
                 mainGridViewPager.setCurrentItem(0, true);
             }
         });
 
-        no.setOnClickListener(new View.OnClickListener() {
+        verbs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                highLightButton(verbs);
                 mainGridViewPager.setCurrentItem(1, true);
             }
         });
 
-        verb.setOnClickListener(new View.OnClickListener() {
+        alphabet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                highLightButton(alphabet);
                 mainGridViewPager.setCurrentItem(2, true);
-            }
-        });
-
-        people.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mainGridViewPager.setCurrentItem(3, true);
             }
         });
 
         time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                highLightButton(time);
+                mainGridViewPager.setCurrentItem(3, true);
+            }
+        });
+
+        garment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                highLightButton(garment);
                 mainGridViewPager.setCurrentItem(4, true);
             }
         });
 
-        question.setOnClickListener(new View.OnClickListener() {
+        birds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                highLightButton(birds);
                 mainGridViewPager.setCurrentItem(5, true);
             }
         });
 
-        weight.setOnClickListener(new View.OnClickListener() {
+        family.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                highLightButton(family);
                 mainGridViewPager.setCurrentItem(6, true);
             }
         });
+
+        police.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                highLightButton(police);
+                mainGridViewPager.setCurrentItem(7, true);
+            }
+        });
+
+        drinks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                highLightButton(drinks);
+                mainGridViewPager.setCurrentItem(8, true);
+            }
+        });
+
+        sickness.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                highLightButton(sickness);
+                mainGridViewPager.setCurrentItem(9, true);
+            }
+        });
+
+        hospital.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                highLightButton(hospital);
+                mainGridViewPager.setCurrentItem(10, true);
+            }
+        });
+
+        colors.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                highLightButton(colors);
+                mainGridViewPager.setCurrentItem(11, true);
+            }
+        });
+
+        animals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                highLightButton(animals);
+                mainGridViewPager.setCurrentItem(12, true);
+            }
+        });
+
+        postOffice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                highLightButton(postOffice);
+                mainGridViewPager.setCurrentItem(13, true);
+            }
+        });
+
+        prepositions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                highLightButton(prepositions);
+                mainGridViewPager.setCurrentItem(14, true);
+            }
+        });
+
+        pronouns.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                highLightButton(pronouns);
+                mainGridViewPager.setCurrentItem(15, true);
+            }
+        });
+
+        adjectives.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                highLightButton(adjectives);
+                mainGridViewPager.setCurrentItem(16, true);
+            }
+        });
+
+        btnArr = new ArrayList<>();
+        btnArr.add(question);
+        btnArr.add(verbs);
+        btnArr.add(alphabet);
+        btnArr.add(time);
+        btnArr.add(garment);
+        btnArr.add(birds);
+        btnArr.add(family);
+        btnArr.add(police);
+        btnArr.add(drinks);
+        btnArr.add(sickness);
+        btnArr.add(hospital);
+        btnArr.add(colors);
+        btnArr.add(animals);
+        btnArr.add(postOffice);
+        btnArr.add(prepositions);
+        btnArr.add(pronouns);
+        btnArr.add(adjectives);
+
+    }
+
+    void highLightButton(Button button){
+        if(previousBtnClicked > 0){
+          Button  prevBtn = findViewById(previousBtnClicked);
+            Drawable buttonDrawable = prevBtn.getBackground();
+            buttonDrawable = DrawableCompat.wrap(buttonDrawable);
+            //the color is a direct color int and not a color resource
+            DrawableCompat.setTint(buttonDrawable, Color.parseColor("#FF000000"));
+            prevBtn.setBackground(buttonDrawable);
+        }
+        previousBtnClicked = button.getId();
+        Drawable buttonDrawable = button.getBackground();
+        buttonDrawable = DrawableCompat.wrap(buttonDrawable);
+        //the color is a direct color int and not a color resource
+        DrawableCompat.setTint(buttonDrawable, Color.parseColor("#63A0E3"));
+        button.setBackground(buttonDrawable);
+
+        scrollView.requestChildFocus(button,button);
     }
 
     void startMainAnimation() {
@@ -380,7 +538,6 @@ public class Main extends AppCompatActivity {
                 break;
         }
     }
-
     private class GifCombiner extends AsyncTask<Void, Void, Void> {
 
         @Override
